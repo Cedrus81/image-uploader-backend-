@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.get('/', log, getImages)
 // router.get('/:id', getImageById)
-// router.post('/', requireAuth, addImage)
+router.post('/', addImage)
 // router.put('/:id', requireAuth, updateImage)
 // router.delete('/:id', requireAuth, removeImage)
 // // router.delete('/:id', requireAuth, requireAdmin, removeImage)

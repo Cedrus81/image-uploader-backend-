@@ -28,12 +28,13 @@ async function getImageById(req, res) {
 }
 
 async function addImage(req, res) {
-  const { loggedinUser } = req
+  // const { loggedinUser } = req
 
   try {
     const image = req.body
-    image.owner = loggedinUser
+    // image.owner = loggedinUser
     const addedImage = await imageService.add(image)
+    console.log(addedImage)
     res.json(addedImage)
   } catch (err) {
     logger.error('Failed to add image', err)
