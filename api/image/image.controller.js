@@ -1,14 +1,14 @@
-const imageService = require('./image.service.js.js')
+const imageService = require('./image.service.js')
 
 const logger = require('../../services/logger.service')
 
 async function getImages(req, res) {
   try {
     logger.debug('Getting Images')
-    const filterBy = {
-      txt: req.query.txt || ''
-    }
-    const images = await imageService.query(filterBy)
+    // const filterBy = {
+    //   txt: req.query.txt || ''
+    // }
+    const images = await imageService.query()
     res.json(images)
   } catch (err) {
     logger.error('Failed to get images', err)

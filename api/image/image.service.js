@@ -3,13 +3,14 @@ const logger = require('../../services/logger.service')
 const utilService = require('../../services/util.service')
 const ObjectId = require('mongodb').ObjectId
 
-async function query(filterBy = { txt: '' }) {
+async function query() {
     try {
-        const criteria = {
-            vendor: { $regex: filterBy.txt, $options: 'i' }
-        }
+        // const criteria = {
+        //     vendor: { $regex: filterBy.txt, $options: 'i' }
+        // }
         const collection = await dbService.getCollection('image')
-        var images = await collection.find(criteria).toArray()
+        console.log(collection)
+        var images = await collection.find().toArray()
         return images
     } catch (err) {
         logger.error('cannot find images', err)
