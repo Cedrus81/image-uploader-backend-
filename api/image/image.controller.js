@@ -31,7 +31,8 @@ async function addImage(req, res) {
   // const { loggedinUser } = req
 
   try {
-    const image = req.body
+    // const image = req.body
+    const { path, isFile } = req.body
     // image.owner = loggedinUser
     const addedImage = await imageService.add(image)
     console.log(addedImage)
