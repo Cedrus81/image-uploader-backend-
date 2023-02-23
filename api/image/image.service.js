@@ -2,7 +2,6 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const utilService = require('../../services/util.service')
 const ObjectId = require('mongodb').ObjectId
-const cloudinaryService = require('../../services/cloudinary.service')
 async function query() {
     try {
         // const criteria = {
@@ -13,6 +12,18 @@ async function query() {
         return images
     } catch (err) {
         logger.error('cannot find images', err)
+        throw err
+    }
+}
+
+async function add(url) {
+    const newImage = { url, addedAt: Date.now() }
+    try {
+        const collection = await dbService.getCollection('image')
+        const res = await collection.insertOne(newImage)
+        return res
+    } catch (err) {
+        logger.error('cannot insert image', err)
         throw err
     }
 }
@@ -35,20 +46,6 @@ async function remove(imageId) {
         return imageId
     } catch (err) {
         logger.error(`cannot remove image ${imageId}`, err)
-        throw err
-    }
-}
-
-async function add(req) {
-    const { url } = req
-    console.log('req:', req, 'url:', url)
-
-    try {
-        const collection = await dbService.getCollection('image')
-        await collection.insertOne({ url })
-        return url
-    } catch (err) {
-        logger.error('cannot insert image', err)
         throw err
     }
 }
