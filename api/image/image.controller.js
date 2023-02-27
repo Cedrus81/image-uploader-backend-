@@ -30,6 +30,7 @@ async function getImageById(req, res) {
 async function addImage(req, res) {
   try {
     const addedImage = await imageService.add(req.body.url)
+    console.log(addedImage)
     res.json(addedImage)
   } catch (err) {
     logger.error('Failed to add image', err)
@@ -53,6 +54,7 @@ async function updateImage(req, res) {
 async function removeImage(req, res) {
   try {
     const imageId = req.params.id
+    console.log('remove id:', imageId)
     const removedId = await imageService.remove(imageId)
     res.send(removedId)
   } catch (err) {

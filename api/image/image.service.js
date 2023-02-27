@@ -2,6 +2,7 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const utilService = require('../../services/util.service')
 const ObjectId = require('mongodb').ObjectId
+const cloudinaryService = require('../../services/cloudinary.service')
 async function query() {
     try {
         // const criteria = {
@@ -42,6 +43,10 @@ async function getById(imageId) {
 async function remove(imageId) {
     try {
         const collection = await dbService.getCollection('image')
+        const image = await collection.findOne({ _id: ObjectId(imageId) })
+        if (image.url.includes('https://res.cloudinary.com/defz7xcxw/image/upload')) {
+            await cloudinaryService.removeFromCloudinary(image.url)
+        }
         await collection.deleteOne({ _id: ObjectId(imageId) })
         return imageId
     } catch (err) {
@@ -49,6 +54,8 @@ async function remove(imageId) {
         throw err
     }
 }
+
+
 
 async function update(image) {
     try {
