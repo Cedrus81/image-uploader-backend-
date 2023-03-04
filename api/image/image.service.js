@@ -3,6 +3,7 @@ const logger = require('../../services/logger.service')
 const utilService = require('../../services/util.service')
 const ObjectId = require('mongodb').ObjectId
 const cloudinaryService = require('../../services/cloudinary.service')
+
 async function query() {
     try {
         // const criteria = {
@@ -21,6 +22,8 @@ async function add(url) {
     const newImage = { url, addedAt: Date.now() }
     try {
         const collection = await dbService.getCollection('image')
+        const length = await collection.countDocuments()
+        if (length > 12) throw new Error('Gallery is limited to 12 images')
         const res = await collection.insertOne(newImage)
         return res
     } catch (err) {
