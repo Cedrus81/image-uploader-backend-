@@ -57,41 +57,41 @@ async function removeImage(req, res) {
     res.send(removedId)
   } catch (err) {
     logger.error('Failed to remove image', err)
-    res.status(500).send({ msg: 'Failed to remove image', err })
+    res.status(500).send({ msg: 'Failed to remove image - here\'s the reason:', err })
   }
 }
 
-async function addImageMsg(req, res) {
-  const { loggedinUser } = req
-  try {
-    const imageId = req.params.id
-    const msg = {
-      txt: req.body.txt,
-      by: loggedinUser
-    }
-    const savedMsg = await imageService.addImageMsg(imageId, msg)
-    res.json(savedMsg)
-  } catch (err) {
-    logger.error('Failed to update image', err)
-    res.status(500).send({ err: 'Failed to update image' })
+// async function addImageMsg(req, res) {
+//   const { loggedinUser } = req
+//   try {
+//     const imageId = req.params.id
+//     const msg = {
+//       txt: req.body.txt,
+//       by: loggedinUser
+//     }
+//     const savedMsg = await imageService.addImageMsg(imageId, msg)
+//     res.json(savedMsg)
+//   } catch (err) {
+//     logger.error('Failed to update image', err)
+//     res.status(500).send({ err: 'Failed to update image' })
 
-  }
-}
+//   }
+// }
 
-async function removeImageMsg(req, res) {
-  const { loggedinUser } = req
-  try {
-    const imageId = req.params.id
-    const { msgId } = req.params
+// async function removeImageMsg(req, res) {
+//   const { loggedinUser } = req
+//   try {
+//     const imageId = req.params.id
+//     const { msgId } = req.params
 
-    const removedId = await imageService.removeImageMsg(imageId, msgId)
-    res.send(removedId)
-  } catch (err) {
-    logger.error('Failed to remove image msg', err)
-    res.status(500).send({ err: 'Failed to remove image msg' })
+//     const removedId = await imageService.removeImageMsg(imageId, msgId)
+//     res.send(removedId)
+//   } catch (err) {
+//     logger.error('Failed to remove image msg', err)
+//     res.status(500).send({ msg: 'Failed to remove image msg', err })
 
-  }
-}
+//   }
+// }
 
 module.exports = {
   getImages,
@@ -100,5 +100,5 @@ module.exports = {
   updateImage,
   removeImage,
   addImageMsg,
-  removeImageMsg
+  // removeImageMsg
 }
