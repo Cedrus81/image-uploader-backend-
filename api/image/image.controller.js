@@ -57,7 +57,7 @@ async function removeImage(req, res) {
     res.send(removedId)
   } catch (err) {
     logger.error('Failed to remove image', err)
-    res.status(500).send({ err: 'Failed to remove image' })
+    res.status(500).send({ msg: 'Failed to remove image', err })
   }
 }
 
