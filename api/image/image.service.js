@@ -44,17 +44,16 @@ async function getById(imageId) {
 }
 
 async function remove(imageId) {
+    if (!imageId) throw new Error('imageId not found')
     try {
         const collection = await dbService.getCollection('image')
-        console.log('got collection')
         const image = await collection.findOne({ _id: ObjectId(imageId) })
-        console.log('got image')
+        if (!collection) throw new Error('imageId not found')
+        if (!image) throw new Error('image not found')
         if (image.url.includes('https://res.cloudinary.com/defz7xcxw/image/upload')) {
             await cloudinaryService.removeFromCloudinary(image.url)
-            console.log('removed from cloudinary')
         }
         await collection.deleteOne({ _id: ObjectId(imageId) })
-        console.log('removed from DB')
         return imageId
     } catch (err) {
         logger.error(`cannot remove image ${imageId}`, err)
