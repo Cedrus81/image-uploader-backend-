@@ -99,6 +99,6 @@ module.exports = {
   addImage,
   updateImage,
   removeImage,
-  addImageMsg,
+  // addImageMsg,
   // removeImageMsg
 }
